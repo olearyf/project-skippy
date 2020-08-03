@@ -5,14 +5,14 @@ A cheap DIY rocket flight computer that tracks time from launch, pressure, altit
 
 ## About
 
-## Parts List
+## Parts List 💡
 
-## Assembly
+## Assembly (no BIC or TEQ 😉)
 
-## Loading the Code
+## Loading the Code 💻
 
-## Attaching to Rocket
+## Attaching to Rocket 🚀
 
 make sure to put 3d printer files so people can make it themselves.
 
-## Launch
+## Launch 💥
