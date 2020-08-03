@@ -62,5 +62,6 @@ void loop() {
     outputFile.println(fileContent[i]);
   }
   Serial.println("Done writing to file.");
+ outputFile.close();
   return;
 }
