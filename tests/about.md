@@ -9,4 +9,17 @@ Note: no aditional wiring needed. Simply plug it in and upload your sketch.
 ## altimeter-test
 This file is a sanity check for using your Adafruit MPL3115A2 pressure sensor. It is hooked up to the 32u4 using I2C(this sensor requires it), and this program prints out some basic stats.
 Below is the wired setup and expected program output:
-<insert here>
+
+insert here!
+
+## accelerometer-test
+This file is a sanity check for using your Adafruit LIS3DH accelerometer with your 32u4 Adalogger using I2C(this sensor can also do SPI, which will be tested for the flight computer later on because it can transmit data at a faster rate). This program prints out some basic stats.
+Below is the wired setup and expected program output:
+
+insert here!
+
+## combined-alt-accel-test
+This file is a sanity check for using your Adafruit LIS3DH accelerometer and Adafruit MPL3115A2 altimeter on a single I2C bus on a 32u4 Adalogger. It logs basic data from both sensors at the same time.
+Below is the wired setup and expected program output:
+
+insert here!
