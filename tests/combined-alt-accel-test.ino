@@ -8,13 +8,13 @@
  */
 
 #include <Wire.h>
-#include <Adafruit_acceleromter3DH.h>
+#include <Adafruit_LIS3DH.h>
 #include <Adafruit_Sensor.h>
 #include <TinyWireM.h>
 #include <USI_TWI_Master.h>
 #include <Adafruit_MPL3115A2.h>
 
-Adafruit_acceleromter3DH acceleromter = Adafruit_acceleromter3DH();
+Adafruit_LIS3DH acceleromter = Adafruit_LIS3DH();
 Adafruit_MPL3115A2 pressureSensor = Adafruit_MPL3115A2();
 float pressurePascals;
 float altitude;
@@ -39,11 +39,11 @@ void setup(void) {
   Serial.println("Successfully connected to altimeter!");
 
   // options: 2, 4, 8, 16, read up on model rockets
-  acceleromter.setRange(acceleromter3DH_RANGE_8_G);
+  acceleromter.setRange(LIS3DH_RANGE_4_G);
   Serial.print("Accelerometer Range = "); Serial.print(2 << acceleromter.getRange());
   Serial.println("G");
 
-  acceleromter.setDataRate(acceleromter3DH_DATARATE_50_HZ);
+  acceleromter.setDataRate(LIS3DH_DATARATE_50_HZ);
   Serial.print("Accelerometer data rate set to 50 Hz.");
 
   Serial.println("Done with setup!");
@@ -57,7 +57,7 @@ void loop() {
   Serial.println(acceleromter.x);
   Serial.print("Y:  ");
   Serial.println(acceleromter.y);
-  Serial.print("Z:  ")
+  Serial.print("Z:  ");
   Serial.println(acceleromter.z);
 
   // testing event data collection
@@ -78,7 +78,7 @@ void loop() {
   pressurePascals = pressureSensor.getPressure();
   Serial.print("Pressure: ");
   Serial.print(pressurePascals / 3377);
-  Serial.println(" Inches (Hg) ";
+  Serial.println(" Inches (Hg) ");
 
   //get altitude
   altitude = pressureSensor.getAltitude();
