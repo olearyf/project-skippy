@@ -8,10 +8,10 @@
  
 #include <Wire.h>
 #include <SPI.h>
-#include <Adafruit_acceleromter3DH.h>
+#include <Adafruit_LIS3DH.h>
 #include <Adafruit_Sensor.h>
 
-Adafruit_acceleromter3DH acceleromter = Adafruit_acceleromter3DH();
+Adafruit_LIS3DH acceleromter = Adafruit_LIS3DH();
 
 void setup(void) {
   Serial.begin(115200);
@@ -25,11 +25,11 @@ void setup(void) {
   Serial.println("Successfully connected to sensor!");
 
   // options: 2, 4, 8, 16, read up on model rockets
-  acceleromter.setRange(acceleromter3DH_RANGE_8_G);
+  acceleromter.setRange(LIS3DH_RANGE_4_G);
   Serial.print("Sensor Range = "); Serial.print(2 << acceleromter.getRange());
   Serial.println("G");
 
-  acceleromter.setDataRate(acceleromter3DH_DATARATE_50_HZ);
+  acceleromter.setDataRate(LIS3DH_DATARATE_50_HZ);
   Serial.print("Data rate set to 50 Hz.");
 
   Serial.println("Done with setup!");
@@ -42,7 +42,7 @@ void loop() {
   Serial.println(acceleromter.x);
   Serial.print("Y:  ");
   Serial.println(acceleromter.y);
-  Serial.print("Z:  ")
+  Serial.print("Z:  ");
   Serial.println(acceleromter.z);
 
   // testing event data collection
