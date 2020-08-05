@@ -31,7 +31,7 @@ void loop() {
   pressurePascals = pressureSensor.getPressure();
   Serial.print("Pressure: ");
   Serial.print(pressurePascals / 3377);
-  Serial.println(" Inches (Hg) ";
+  Serial.println(" Inches (Hg) ");
 
   //get altitude
   altitude = pressureSensor.getAltitude();
