@@ -13,10 +13,10 @@
 #define cardSelect 4
 File outputFile;
 char filename[15];
-char fileContent[][] = {
+char fileContent[][100] = {
   "Hello! This is the Adalogger SD card test!",
   "I hope you're having a great day!",
-  "What are you making with your Adalogger?"
+  "What are you making with your Adalogger?",
   "More precisely, what data are you logging?",
   "It's cool, you don't have to tell me if you don't want to.",
   "Hopefully this test works!",
@@ -34,7 +34,6 @@ void setup() {
   // check if the card is there:
   if (!SD.begin(cardSelect)) {
     Serial.println("Micro SD card could not be located.");
-    error(2);
   }
 
   // open or make the file
@@ -43,7 +42,6 @@ void setup() {
   if(!outputFile) {
     Serial.print("Couldn't create the file with name: "); 
     Serial.println(filename);
-    error(3);
   }
   Serial.print("Writing to the file: "); 
   Serial.println(filename);
