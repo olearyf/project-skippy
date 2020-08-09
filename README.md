@@ -5,6 +5,10 @@ A cheap DIY rocket flight computer that tracks time from launch, pressure, altit
 
 ## About
 
+While there are some neat physics tricks when it comes to approximating flight data for your model rockets, and while there are online weather apps and things to get such information such as local pressure and temperature, I thought it would be much more fun to get all this data myself. In addition to this, I can adjust the granularity to my preferences and make some sweet plots of some sweet data! Thus, Project Skippy is born; named because I started real work on the idea across from a jar of Skippy peanut butter while working in my kitchen. It's easy to use and implement, and in addition to this I supplied the 3D files for everything you need so you can print your own! All rockets use C Estes motors. 
+
+Anyways, the idea is this: you print a rocket, make a flight computer, launch the rocket(with my super technical and complicated(jokes) remote ignition system), log the data during the flight, analyze it, and just have a good time. If that seems like something you're interested in, heres how:
+
 ## Parts List 💡
 - [Adafruit Lithium Ion Polymer Battery - 3.7v 500mAh](https://www.adafruit.com/product/1578)
 - [Adafruit Feather 32u4 Adalogger](https://www.adafruit.com/product/2795)
@@ -26,6 +30,8 @@ Below are some schematics made with Fritzing that detail how to wire it up. I re
 ![](https://github.com/olearyf/project-skippy/blob/master/images/project%20skippy_schem.jpg)
 
 Once it's all wired up you're ready to load the code!
+
+Note: not shown in the schematic is the 3.7v 500mAh battery - I soldered a slide switch to break the positive terminal to act as a way to turn the computer on and off. Note, to initiate the program you may need to hit the reset button on the board.
 
 ## Loading the Code 💻
 
