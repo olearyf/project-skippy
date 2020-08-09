@@ -117,7 +117,7 @@ fig.add_trace(
         y=df["yAcceleration(m/s^2)"],
         mode="lines",
         name="yAcceleration",
-        line=dict(color="#FF7B9C")
+        line=dict(color="#66B3FF")
     ),
     row=6, col=1
 )
@@ -153,7 +153,7 @@ fig.add_trace(
         y=df["yAcceleration(m/s^2)"],
         mode="lines",
         name="yAcceleration",
-        line=dict(color="#FF7B9C")
+        line=dict(color="#66B3FF")
     ),
     row=4, col=1
 )
