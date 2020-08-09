@@ -26,3 +26,5 @@ A cheap DIY rocket flight computer that tracks time from launch, pressure, altit
 make sure to put 3d printer files so people can make it themselves.
 
 ## Launch 💥
+
+### Important Notes (aka don't make the mistakes I did)
