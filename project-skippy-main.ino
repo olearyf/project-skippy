@@ -1,11 +1,12 @@
 /*
- * Frances O'Leary 8/8/2020 - position tracking removed because a gyroscope is needed
+ * Frances O'Leary 8/9/2020
  * 
- * This is preliminary code for project
- * skippy, a homemade model rocket flight
- * computer. Assuming the other tests (look in
- * the repo you found this code in) go well,
- * this should work. Emphasis on should.
+ * This is code for project
+ * skippy(V1), a homemade model rocket flight
+ * computer. It logs data such as time since it
+ * started logging, pressure, altitude, temperature, and xyz
+ * accelertation in a csv file. It is intended to be used in conjunction
+ * with SkippyParser.py, which plots the data.
  * 
  * Flow:
  *  - turn on device
@@ -15,6 +16,7 @@
  *  - file closed
  *  - sketch terminates
  */
+
 #include <SPI.h>
 #include <SD.h>
 #include <Wire.h>
@@ -42,15 +44,14 @@ float temperature; // degrees c
 float xAcceleration; // m/s^2
 float yAcceleration; // m/s^2
 float zAcceleration; // m/s^2
+float baseX; // to account for position of accelerometer
+float baseY; // to account for position of accelerometer
 float baseZ; //used to account for acceleration due to gravity
-float baseAlt; //used to get altitude relative to the altitude the user is at
 
 void setup() {
-  Serial.begin(115200);
-  while (!Serial);
-  Serial.println("Project Skippy Flight Computer Starting. . .");
   
   // set pins
+  delay(500);
   pinMode(redLED, OUTPUT);
   pinMode(loggingLED, OUTPUT);
   digitalWrite(loggingLED, LOW);
@@ -58,7 +59,6 @@ void setup() {
 
   // see if card can be initialized
   if (!SD.begin(cardSelect)) {
-    Serial.println("Card not found.");
     digitalWrite(redLED, HIGH);
     return;
   }
@@ -77,66 +77,59 @@ void setup() {
   logfile = SD.open(filename, FILE_WRITE);
   if(!logfile) {
     digitalWrite(redLED, HIGH);
-    Serial.print("Couldn't create the file: "); 
-    Serial.println(filename);
     return;
   }
-  Serial.print("Writing to the file: "); 
-  Serial.println(filename);
+  
   // write data schema on top line of file
   logfile.println("time(sec),pressure(pa),altitude(m),temperature(C),xAcceleration(m/s^2),yAcceleration(m/s^2),zAcceleration(m/s^2)");
-
-  Serial.println("Initializing sensors now. . . ");
-
+  
   // attempt to connect to acceleromter at I2C address 0x18
   if (! acceleromter.begin(0x18)) { // if fails, try 0x19 as an alternative, or use address debugger
     digitalWrite(redLED, HIGH);
-    Serial.println("Could not initialize accelerometer.");
     return;
   }
-  Serial.println("Successfully connected to accelerometer!");
-
   
-  if (!pressureSensor.begin()) {
-    digitalWrite(redLED, HIGH);
-    Serial.println("Altimeter could not be intialized.");
-    return;
-  }
-  Serial.println("Successfully connected to altimeter!");
-
-  // options: 2, 4, 8, 16, read up on model rockets
+  // options: 2, 4, 8, 16
   acceleromter.setRange(LIS3DH_RANGE_8_G);
-  Serial.print("Accelerometer Range = "); Serial.print(2 << acceleromter.getRange());
-  Serial.println("G");
 
   acceleromter.setDataRate(LIS3DH_DATARATE_50_HZ);
-  Serial.println("Accelerometer data rate set to 50 Hz.");
+
+  // attempt to connect to pressure sensor
+  if (!pressureSensor.begin()) {
+    digitalWrite(redLED, HIGH);
+    return;
+  }
 
   // get base measurements
   sensors_event_t event;
   acceleromter.getEvent(&event);
+  baseX = event.acceleration.x;
+  baseY = event.acceleration.y;
   baseZ = event.acceleration.z;
-  baseAlt = pressureSensor.getAltitude();
   dataLoggingStartTime = millis();
 
   // set pins
   pinMode(redLED, OUTPUT);
   digitalWrite(loggingLED, LOW);
-  
-  Serial.println("Project Skippy is initialized and ready!");
+
+  // set LED to 'logging mode' (aka on)
   digitalWrite(loggingLED, HIGH);
 }
 
 void loop() {
+  // get data
   time = (float)(millis() - dataLoggingStartTime) / 1000.0; // convert to seconds
   pressure = pressureSensor.getPressure();
-  altitude = pressureSensor.getAltitude() - baseAlt;
+  pressure = pressureSensor.getPressure();
+  altitude = pressureSensor.getAltitude();
+  altitude = pressureSensor.getAltitude();
+  temperature = pressureSensor.getTemperature();
   temperature = pressureSensor.getTemperature();
   sensors_event_t event;
   acceleromter.getEvent(&event);
-  xAcceleration = event.acceleration.x;
-  yAcceleration = event.acceleration.y;
-  zAcceleration = event.acceleration.z - baseZ;
+  xAcceleration = event.acceleration.x - baseX; // adjust for base measurements
+  yAcceleration = event.acceleration.y - baseY; // adjust for base measurements
+  zAcceleration = event.acceleration.z - baseZ; // adjust for base measurements
 
   // print data to file in predefined data schema
   logfile.print(time);
@@ -156,7 +149,7 @@ void loop() {
   if (time >= 600.0) {
     logfile.close();
     digitalWrite(loggingLED, LOW);
-    exit(0);
+    return;
   }
   delay(100);
 }
