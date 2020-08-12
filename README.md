@@ -1,4 +1,6 @@
 # project-skippy
+**NOTE: this project is still underway!**
+
 A cheap DIY rocket flight computer that tracks time from launch, pressure, altitude, temperature, acceleration.
 
 ![](https://github.com/olearyf/project-skippy/blob/master/project-skippy-logo.jpg)
@@ -39,9 +41,11 @@ To load the code, use the  [Arduino IDE](https://www.arduino.cc/en/main/software
 
 ## Attaching to Rocket 🚀
 
-make sure to put 3d printer files so people can make it themselves. -> rocket, nose cone, bottom joint, the works
+This will come soon! Project Skippy will be mounted to a nose cone for my modular rocket system.
 
 ## Launch 💥
+
+Also soon! A test launch.
 
 ## Analysis 📝
 
@@ -51,7 +55,7 @@ python SkippyParser.py "path/to/your/flight/data/from/the/computer.csv"
 ```
 This will parse your data and launch an html file that contains your data plots! Analyze to your heart's content; below is a readout from one of my launches:
 
-insert jpg
+Image coming soon!
   
 ### Important Notes (aka don't make the mistakes I did)
 
