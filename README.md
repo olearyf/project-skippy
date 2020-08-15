@@ -45,7 +45,7 @@ This will come soon! Project Skippy will be mounted to a nose cone for my modula
 
 ## Launch 💥
 
-Also soon! A test launch.
+Also soon! A test launch and the 3D files for the rocket I used.
 
 ## Analysis 📝
 
@@ -55,7 +55,7 @@ python SkippyParser.py "path/to/your/flight/data/from/the/computer.csv"
 ```
 This will parse your data and launch an html file that contains your data plots! Analyze to your heart's content; below is a readout from one of my launches:
 
-Image coming soon!
+![](https://github.com/olearyf/project-skippy/blob/master/images/newplot%20(2).png)
   
 ### Important Notes (aka don't make the mistakes I did)
 
